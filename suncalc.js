@@ -242,7 +242,13 @@ SunCalc.getMoonIllumination = function (date) {
 
 
 function hoursLater(date, h) {
-    return new Date(date.valueOf() + h * dayMs / 24);
+    var date = new Date(date.valueOf() + h * dayMs / 24);
+	return date;
+}
+
+function CustomHoursLater(date, h) {
+    var date = new Date(date.valueOf() + h * dayMs / 24);
+	return date.getHours() + ":" + date.getMinutes();
 }
 
 // calculations for moon rise/set times are based on http://www.stargazing.net/kepler/moonrise.html article
@@ -293,8 +299,8 @@ SunCalc.getMoonTimes = function (date, lat, lng, inUTC) {
 
     var result = {};
 
-    if (rise) result.rise = hoursLater(t, rise);
-    if (set) result.set = hoursLater(t, set);
+    if (rise) result.rise = CustomHoursLater(t, rise);
+    if (set) result.set = CustomHoursLater(t, set);
 
     if (!rise && !set) result[ye > 0 ? 'alwaysUp' : 'alwaysDown'] = true;
 
